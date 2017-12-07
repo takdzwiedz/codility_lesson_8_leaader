@@ -29,7 +29,7 @@
  * Elements of input arrays can be modified.
  */
 
-$A1 = array (4, 2, 2, 3, 2, 4, 2, 2, 6, 4 );
+$A1 = array (4, 2, 2, 4,3, 2, 4, 2, 2, 6, 4 );
 $A2 = array(100, 1, 1, 50, 1);
 $A3 = 'Checker';
 $A4 = array (4, 2, -2, 3, 2, -4, 2, 2, 6, 4 );
@@ -49,9 +49,8 @@ function arrLeader($A) {
             // Does it contain less than 1000001 elements?
             if (count($A) <= 1000000) {
 
-                //Are only expected type of values values inside?
+                //Are only expected type of values inside?
                 $valFine = 1;
-
                 foreach ($A as $value){
                     //Are positive?
                     if ($value < 0) {
