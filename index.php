@@ -31,44 +31,100 @@
 
 $A1 = array (4, 2, 2, 3, 2, 4, 2, 2, 6, 4 );
 $A2 = array(100, 1, 1, 50, 1);
+$A3 = 'Checker';
+$A4 = array (4, 2, -2, 3, 2, -4, 2, 2, 6, 4 );
+$A5 = array(100, 1, 1, 50, 2147483649);
+$A6 = array();
+$A7 = array (4, 2, 2, 'test', 2, 4, 2, 2, 6, 4 );
+
 
 function arrLeader($A) {
 
-    $total = count($A);
-    $repeated = array_count_values($A);
-    $totalRepeated = count($repeated);
-    $highestFreqOfArray = max($repeated);
-    $valueOfMostFrequent = array_search($highestFreqOfArray, $repeated);
+    // Is it array?
+    if(is_array($A)){
+
+        //Is not empty?
+        if(count($A) > 0) {
+
+            // Does it contain less than 1000001 elements?
+            if (count($A) <= 1000000) {
+
+                //Are only expected type of values values inside?
+                $valFine = 1;
+
+                foreach ($A as $value){
+                    //Are positive?
+                    if ($value < 0) {
+                        $valFine++;
+                        echo '"'.$value.'" is a negative value<br>';
+                    }
+                    //Are proper in size?
+                    if ($value > 2147483647) {
+                        $valFine++;
+                        echo '"'.$value.'" is a too big<br>';
+                    }
+                    //Are numeric?
+                    if (!is_numeric($value)) {
+                        $valFine++;
+                        echo '"'.$value.'" is a non numeric value<br>';
+                    }
+                }
+
+                //If preliminary conditions are fine let's proceed
+                if ($valFine==1){
+
+                    $total = count($A);
+                    $repeated = array_count_values($A);
+                    $totalRepeated = count($repeated);
+                    $highestFreqOfArray = max($repeated);
+                    $valueOfMostFrequent = array_search($highestFreqOfArray, $repeated);
+
+                    echo'Array: <b>[';
+                    foreach ($A as $key => $value){
+                        echo $value.',';
+                    };
+                    echo ']</b><br>';
+                    echo 'Total number of elements in array: <b>'.$total.'</b><br>';
+                    echo'Array of repeated elements (value=>frequency): <b>[ ';
+                    foreach ($repeated as $key => $value){
+                        echo $key.' => '.$value.', ';
+                    };
+                    echo ']</b><br>';
+                    echo 'Number of repated elements in array: <b>'.$totalRepeated.'</b><br>';
+                    echo 'Highest frequency of repeated value: <b>'.$highestFreqOfArray.'</b><br>';
+                    echo 'Value of most frequent element in array: <b>'.$valueOfMostFrequent.'</b><br><br>';
+
+                    echo '<b>The answer is: ';
+                    if ($highestFreqOfArray > $total/2) {
+                        echo '-1</b>';
+                    } else {
+                        echo '1</b>';
+                    }
+
+                } else {
+
+                    echo 'Improper value/s';
+                }
+
+            } else {
+
+                echo 'Array is to big';
+
+            }
+
+        } else {
 
 
-    echo'Array: <b>[';
-    foreach ($A as $key => $value){
-        echo $value.',';
-    };
-    echo ']</b><br>';
-    echo 'Total number of elements in array: <b>'.$total.'</b><br>';
-    echo'Array of repeated elements (value=>frequency): <b>[ ';
-    foreach ($repeated as $key => $value){
-        echo $key.' => '.$value.', ';
-    };
-    echo ']</b><br>';
-    echo 'Number of repated elements in array: <b>'.$totalRepeated.'</b><br>';
-    echo 'Highest frequency of repeated value: <b>'.$highestFreqOfArray.'</b><br>';
-    echo 'Value of most frequent element in array: <b>'.$valueOfMostFrequent.'</b><br><br>';
+            echo 'Array is empty';
+        }
 
-
-    echo '<b>The answer is: ';
-    if ($highestFreqOfArray > $total/2) {
-        echo '-1</b>';
     } else {
-        echo '1</b>';
+
+        echo '\''.$A = $A.'\' is not an array';
     }
+
+
 }
 echo '<b>LEADER</b><br><br>';
 
-arrLeader($A2);
-
-//$array = array(12,43,66,21,56,43,43,78,78,100,43,43,43,21);
-//$vals = array_count_values($array);
-//echo 'No. of NON Duplicate Items: '.count($vals).'<br><br>';
-//print_r($vals);
+arrLeader($A7);
